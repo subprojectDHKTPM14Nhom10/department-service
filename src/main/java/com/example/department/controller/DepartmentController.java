@@ -3,6 +3,7 @@ package com.example.department.controller;
 import com.example.department.entity.Department;
 import com.example.department.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -11,7 +12,7 @@ public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
 
-    @PostMapping("/")
+    @PostMapping
     public Department saveDepartment(@RequestBody Department department){
         return departmentService.saveDepartment(department);
     }
@@ -19,4 +20,13 @@ public class DepartmentController {
     public Department findDepartmentById(@PathVariable("id")Long orderId){
         return departmentService.findDepartmentById(orderId);
     }
+
+    @Value("${welcome}")
+    String AA;
+
+    @GetMapping
+    public String helloWorld(){
+        return AA;
+    }
+
 }
