@@ -21,12 +21,11 @@ public class DepartmentController {
         return departmentService.findDepartmentById(orderId);
     }
 
-    @Value("${welcome}")
-    String AA;
+
 
     @GetMapping
     public String helloWorld(){
-        return AA;
+        return "AA";
     }
 
 }
