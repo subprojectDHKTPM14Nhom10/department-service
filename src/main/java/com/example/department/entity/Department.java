@@ -13,6 +13,7 @@ import java.io.Serializable;
 @Entity
 @Table(name="t_departments")
 public class Department implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
     private Long Id;
