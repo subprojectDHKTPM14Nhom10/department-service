@@ -27,20 +27,18 @@ public class DepartmentService {
         this.redisTemplate = redisTemplate;
     }
     public Department saveDepartment(Department department){
-
         System.out.println("NHAN" + department);
         try {
             Department department1 = departmentRepository.findById(department.getId()).get();
-
             if(department1 != null){
                 department1.setDepartmentName(department.getDepartmentName());
-                System.out.println("try" + department1);
-                return departmentRepository.save(department1);
+                Department kq = departmentRepository.save(department1);
+                hashOperations.put("DEPARTMENT", kq.getId(), kq);
+                return kq;
             }
         }catch(Exception e){
             Department d = new Department();
             d.setDepartmentName(department.getDepartmentName());
-            System.out.println("catch" + d);
             Department dzz = departmentRepository.save(d);
             hashOperations.put("DEPARTMENT", dzz.getId(), dzz);
             return dzz;
@@ -64,7 +62,7 @@ public class DepartmentService {
         return list;
     }
     public Department updateDepartment(Department inv, Long Id) {
-        hashOperations.put("DEPARTMENT", Id, inv);
+        hashOperations.put("DEPARTMENT", inv.getId(), inv);
         Department department = departmentRepository.findById(Id)
                 .orElseThrow(() -> new DepartmentNotFoundException("Invoice Not Found"));
         department.setDepartmentName(inv.getDepartmentName());
@@ -77,7 +75,6 @@ public class DepartmentService {
         departmentRepository.delete(invoice);
     }
     public Long layMaDepartmentLonNhat(){
-
         Long maxid = 0l;
         List<Department> departments = departmentRepository.findAll();
         for (Department department : departments){
