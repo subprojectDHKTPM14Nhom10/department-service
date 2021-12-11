@@ -23,9 +23,6 @@ public class DepartmentController {
     public Department findDepartmentById(@PathVariable("id")Long orderId){
         return departmentService.findDepartmentById(orderId);
     }
-
-
-
     @GetMapping
     public String helloWorld(){
         return "AA";
